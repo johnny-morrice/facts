@@ -1,6 +1,11 @@
 package main
 
 import (
+        "bufio"
+        "fmt"
+        "io"
+        "log"
+        "os"
         "strings"
 
         "github.com/pkg/errors"
@@ -9,36 +14,59 @@ import (
 func main() {
         frame := &RealityFrame{}
 
-        frame.realm = &EloUnderground{}
+        //frame.realm = &EloUnderground{}
 
-        frame.structure = &Room{
-                Walls: MakeWalls(MakeMaterials("brick:white", 1), 4)
-                Floor: MakeMaterials("lino:blue", 1),
-                Roof: MakeMaterials("brick:white", 1),
+        room := &Room{
+                Walls: MakeWalls(MakeMaterials("brick:white", 1), 4),
+                //Floor: MakeMaterials("lino:blue", 1),
+                //Roof: MakeMaterials("brick:white", 1),
                 Size: SMALL_ROOM,
         }
-
-        frame.structure.Walls[0].Door = &Door{
-                Panes: MakeMaterials("steel:unpainted")
+/*
+        room.Walls[0].Door = Door{
+                Panes: MakeMaterials("steel:unpainted", 1),
         }
+        */
 
-        frame.playerentity = MakeHuman("adult:male:prime")
+        frame.Structure = room
 
+        //frame.PlayerEntity = MakeHuman("adult:male:prime")
+
+        /*
         psych := PrisonCell()
 
+        */
 
+        out := bufio.NewWriter(os.Stdout)
+
+        err := frame.Describe(out, nil)
+
+        if err != nil {
+                log.Fatal(errors.Wrap(err, "error: "))
+        }
+
+        err = out.Flush()
+
+        if err != nil {
+                log.Fatal(errors.Wrap(err, "error: flushing buffer"))
+        }
 }
 
 type RealityFrame struct {
+        Structure Entity
+        //PlayerEntity Entity
+}
 
+func (rf *RealityFrame) Describe(w io.Writer, attrs AttrSet) error {
+        return rf.Structure.Describe(w, attrs)
 }
 
 type Checker interface {
-        Is(p Attribute) (bool, error)
+        Is(p Attribute) bool
 }
 
 type Describer interface {
-        Describe(ps []Attribute) (string, error)
+        Describe(w io.Writer, attrs AttrSet) error
 }
 
 type Entity interface {
@@ -54,9 +82,8 @@ type Room struct {
         Size RoomSize
 }
 
-func (r *Room) Is(p Attribute) (bool, error) {
-        switch (p)
-        {
+func (r *Room) Is(attr Attribute) bool {
+        switch (attr) {
         case Tiny:
                 return r.Size == CUPBOARD
         case Small:
@@ -65,54 +92,42 @@ func (r *Room) Is(p Attribute) (bool, error) {
                 return true
         case Sealed:
                 return true
+        default:
+                return false
         }
 }
 
-func (r *Room) Describe(attrs AttrSet) (string, error) {
-        wallSet := map[Wall]int
-
-        for _, w := r.Walls {
-                if prev, ok := wallSet[w]; ok {
-                        wallSet[w] = prev + 1
-                } else {
-                        wallSet[w] = 1
-                }
-        }
-
-        out := ""
-
+func (r *Room) Describe(w io.Writer, attrs AttrSet) error {
         if attrs.Has(Grim) {
-                out = "This awful room is "
+                fmt.Fprint(w, "This awful room is ")
         } else {
-                out = "This room is"
+                fmt.Fprint(w, "This room is ")
         }
 
         switch (r.Size) {
         case CUPBOARD:
-                out += "tiny. "
+                fmt.Fprint(w, "tiny. ")
         case SMALL_ROOM:
-                out += "small. "
+                fmt.Fprint(w, "small. ")
         case LARGE_ROOM:
-                out += "large. "
+                fmt.Fprint(w, "large. ")
         }
 
-        out += fmt.Sprintf("It has %v walls", len(r.Walls))
+        fmt.Fprintf(w, "It has %v walls.", len(r.Walls))
 
-        if len(wallSet) == 1 {
-                out += ", all the same. "
-        } else {
-                out += ". "
-        }
+        fmt.Fprintf(w, "\n")
 
-        for w, c := range wallSet {
-                wd, err := w.Describe(attrs)
+        for _, wall := range r.Walls {
+                err := wall.Describe(w, attrs)
 
                 if err != nil {
-                        errors.Wrap(err, "error: describing room")
+                        return errors.Wrap(err, "room describing walls")
                 }
 
-                out += fmt.Sprintf("%v walls: %v", c, wd)
+                fmt.Fprintf(w, "\n")
         }
+
+        return nil
 }
 
 type AttrSet map[Attribute]bool
@@ -121,8 +136,8 @@ func (a AttrSet) Has(attr Attribute) bool {
         return a[attr]
 }
 
-func Attributes(attrs... []Attribute) AttrSet {
-        attrSet := map[Attribute]bool
+func Attributes(attrs... Attribute) AttrSet {
+        attrSet := map[Attribute]bool{}
 
         for _, a := range attrs {
                 attrSet[a] = true
@@ -144,9 +159,40 @@ type Material struct {
         Color string
 }
 
+func (m *Material) Describe(w io.Writer, attrs AttrSet) error {
+        fmt.Fprintf(w, "%v of %v", m.Name, m.Color)
+
+        return nil
+}
+
 type Wall struct {
         Panes []Material
         Door Door
+}
+
+func (wall *Wall) Describe(w io.Writer, attrs AttrSet) error {
+        if len(wall.Panes) == 0 {
+                return errors.New("invisible wall")
+        }
+
+        fmt.Fprintf(w, "A wall made from ")
+
+        between := ""
+        for _, p := range wall.Panes {
+                fmt.Fprintf(w, "%v", between)
+
+                err := p.Describe(w, attrs)
+
+                if err != nil {
+                        return errors.Wrap(err, "wall pane error")
+                }
+
+                fmt.Fprintf(w, ".")
+
+                between = " and "
+        }
+
+        return nil
 }
 
 type Door struct {
@@ -236,12 +282,11 @@ const (
 var __clsmap = map[Attribute]PredicateClass{}
 
 func init() {
-        __clsmap[Inside] = PositionClass
-
         __clsmap[Tiny] = SizeClass
         __clsmap[Small] = SizeClass
 
-        __clsmap[Confined] = ArchitectureClass
+        __clsmap[Inside] = ArchitectureClass
+        __clsmap[Sealed] = ArchitectureClass
 
         __clsmap[Location] = RootClass
 
@@ -272,7 +317,7 @@ func (c *Conditional) Valid(e Entity) bool {
 
         all := false
         for _, pred := range c.OrConditions {
-                all = all || pred
+                all = all || e.Is(pred)
         }
 
         return all
@@ -284,24 +329,24 @@ type PerceptionFrame struct {
         Name string
 }
 
-func (pf *PerceptionFrame) Run(e Entity) (string, error) {
-        if !pf.Valid() {
-                return "", errors.New("Failed condition")
+func (pf *PerceptionFrame) Describe(w io.Writer, e Entity) error {
+        if !pf.Valid(e) {
+                return errors.New("Failed condition")
         }
 
-        return pf.Perception.Describe(e)
+        return pf.Perception.Describe(w, e)
 }
 
 type Perception interface {
-        Describe(e Entity) (string, error)
+        Describe(w io.Writer, e Entity) error
 }
 
-func PrisonCell() PerceptionFrame {
-        cell := PerceptionFrame{}
+func PrisonCell() *PerceptionFrame {
+        cell := &PerceptionFrame{}
 
-        cell.PlaceName = "Cell"
+        cell.Name = "Cell"
 
-        cell.Format = &CellFormatter{}
+        cell.Perception = &CellPerception{}
 
         cell.AndConditions = []Attribute{
                 Location,
@@ -312,23 +357,25 @@ func PrisonCell() PerceptionFrame {
                 Tiny,
                 Small,
         }
+
+        return cell
 }
 
 type CellPerception struct {}
 
-func (cf *CellPerception) Describe(e Entity) (string, error) {
-        // TODO compute odd walls/floor
-        // TODO use golang template library
-
-        var out string
-
+func (cf *CellPerception) Describe(w io.Writer, e Entity) error {
         if e.Is(Tiny) {
-                out = "You are in a cramped prison cell.  The walls seem to press in around you."
+                fmt.Fprint(w, "You are in a cramped prison cell. ")
+                fmt.Fprint(w, "The walls seem to press in around you.")
         } else {
-                out = "You are in a spacious prison cell."
+                fmt.Fprint(w, "You are in a spacious prison cell.")
         }
 
-        out += e.Describe(Attributes(Grim))
+        err := e.Describe(w, Attributes(Grim))
 
-        return out, nil
+        if err != nil {
+                return errors.Wrap(err, "CellPerception describe failed")
+        }
+
+        return nil
 }
