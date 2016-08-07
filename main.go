@@ -485,7 +485,6 @@ func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {
         }
 
         top := scored[highest]
-
         rogue := rand.Intn(len(top))
 
         return top[rogue], nil
