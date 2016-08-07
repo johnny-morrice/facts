@@ -14,7 +14,7 @@ type PerceptionFrame struct {
 
 func (pf *PerceptionFrame) Describe(w io.Writer, rf *RealityFrame) error {
 	if err := pf.Validate(rf); err != nil {
-		panic(errors.Wrap(err, "PerceptionFrame description"))
+		panic(errors.Wrap(err, "PerceptionFrame validation"))
 	}
 
 	return pf.Perception.Describe(w, rf)
