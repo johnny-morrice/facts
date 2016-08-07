@@ -486,9 +486,9 @@ func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {
 
         top := scored[highest]
 
-        rouge := rand.Intn(len(top))
+        rogue := rand.Intn(len(top))
 
-        return top[rouge], nil
+        return top[rogue], nil
 }
 
 func (psych *Personality) Describe(w io.Writer, rf *RealityFrame) error {
