@@ -284,10 +284,9 @@ func (d *Door) Describe(w io.Writer, attrs AttrSet) error {
 
         fmt.Fprint(w, ".")
 
-        newline(w)
-
         if d.Handle != nil {
                 if d.Handle.Material.Name != "" {
+                        newline(w)
                         fmt.Fprint(w, "It has an unusual doorhandle made from ")
 
                         err := d.Handle.Material.Describe(w, attrs)
@@ -297,9 +296,9 @@ func (d *Door) Describe(w io.Writer, attrs AttrSet) error {
                         }
 
                         fmt.Fprint(w, ".")
-                        newline(w)
                 }
         } else {
+                newline(w)
                 fmt.Fprint(w, "It has no door handle.")
         }
 
