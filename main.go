@@ -24,9 +24,15 @@ func main() {
                 Size: SMALL_ROOM,
         }
 
-        room.Walls[0].Door = &Door{
+        door := &Door{
                 Panes: MakeMaterials("steel:unpainted", 1),
         }
+
+        room.Walls[0].Door = door
+
+        if len(os.Args) > 1 {
+                door.Handle = &DoorHandle{}
+        } 
 
         frame.Structure = room
 
