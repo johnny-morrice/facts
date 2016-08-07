@@ -23,11 +23,10 @@ func main() {
                 //Roof: MakeMaterials("brick:white", 1),
                 Size: SMALL_ROOM,
         }
-/*
-        room.Walls[0].Door = Door{
+
+        room.Walls[0].Door = &Door{
                 Panes: MakeMaterials("steel:unpainted", 1),
         }
-        */
 
         frame.Structure = room
 
@@ -196,6 +195,8 @@ type Material struct {
         Color string
 }
 
+type Matlist []Material
+
 func (m *Material) isAustere() bool {
         austere := map[string]bool{
                 "brick": true,
@@ -208,6 +209,23 @@ func (m *Material) isAustere() bool {
 
 func (m *Material) Describe(w io.Writer, attrs AttrSet) error {
         fmt.Fprintf(w, "%v of %v", m.Name, m.Color)
+
+        return nil
+}
+
+func (mats Matlist) Describe(w io.Writer, attrs AttrSet) error {
+        between := ""
+        for _, m := range mats {
+                fmt.Fprint(w, between)
+
+                err := m.Describe(w, attrs)
+
+                if err != nil {
+                        return err
+                }
+
+                between = " and "
+        }
 
         return nil
 }
@@ -234,19 +252,15 @@ func (wall *Wall) Describe(w io.Writer, attrs AttrSet) error {
 
         fmt.Fprintf(w, "A wall made from ")
 
-        between := ""
-        for _, p := range wall.Panes {
-                fmt.Fprintf(w, "%v", between)
+        Matlist(wall.Panes).Describe(w, attrs)
 
-                err := p.Describe(w, attrs)
+        fmt.Fprint(w, ".")
 
-                if err != nil {
-                        return errors.Wrap(err, "wall pane error")
-                }
-
-                fmt.Fprintf(w, ".")
-
-                between = " and "
+        if wall.Door != nil {
+                newline(w)
+                fmt.Fprintf(w, "There is a door here.")
+                newline(w)
+                wall.Door.Describe(w, attrs)
         }
 
         return nil
@@ -257,9 +271,37 @@ type Door struct {
         Handle *DoorHandle
 }
 
+func (d *Door) Describe(w io.Writer, attrs AttrSet) error {
+        fmt.Fprint(w, "This door is made from ")
+
+        Matlist(d.Panes).Describe(w, attrs)
+
+        fmt.Fprint(w, ".")
+
+        newline(w)
+
+        if d.Handle != nil {
+                if d.Handle.Material.Name != "" {
+                        fmt.Fprint(w, "It has an unusual doorhandle made from ")
+
+                        err := d.Handle.Material.Describe(w, attrs)
+
+                        if err != nil {
+                                return errors.Wrap(err, "door describing handle")
+                        }
+
+                        fmt.Fprint(w, ".")
+                        newline(w)
+                }
+        } else {
+                fmt.Fprint(w, "It has no door handle.")
+        }
+
+        return nil
+}
+
 type DoorHandle struct {
-        Shape string
-        Material
+        Material Material
 }
 
 func MakeMaterial(desc string) Material {
