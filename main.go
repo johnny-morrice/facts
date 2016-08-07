@@ -32,14 +32,11 @@ func main() {
 
         //frame.PlayerEntity = MakeHuman("adult:male:prime")
 
-        /*
-        psych := PrisonCell()
-
-        */
+        perc := PrisonCell()
 
         out := bufio.NewWriter(os.Stdout)
 
-        err := frame.Describe(out, nil)
+        err := perc.Describe(out, frame)
 
         if err != nil {
                 log.Fatal(errors.Wrap(err, "error: "))
@@ -55,6 +52,10 @@ func main() {
 type RealityFrame struct {
         Structure Entity
         //PlayerEntity Entity
+}
+
+func (rf *RealityFrame) Is(attr Attribute) bool {
+        return rf.Structure.Is(attr)
 }
 
 func (rf *RealityFrame) Describe(w io.Writer, attrs AttrSet) error {
@@ -253,33 +254,23 @@ const (
         Smell
 )
 
-type Attribute uint
+type Attribute string
 
-const (
-        Location = Attribute(iota)
+const Location Attribute = "location"
+const Inside Attribute = "inside"
+const Sealed Attribute = "sealed"
+const Tiny Attribute = "tiny"
+const Small Attribute = "small"
+const Grim Attribute = "grim"
 
-        Inside
-        Sealed
+type AttrClass Attribute
 
-        Tiny
-        Small
+const RootClass AttrClass = "root"
+const ArchitectureClass AttrClass = "architecture"
+const SizeClass AttrClass = "size"
+const EmotionClass AttrClass = "emotion"
 
-        Grim
-)
-
-type PredicateClass uint
-
-const (
-        RootClass = PredicateClass(iota)
-
-        ArchitectureClass
-
-        SizeClass
-
-        EmotionClass
-)
-
-var __clsmap = map[Attribute]PredicateClass{}
+var __clsmap = map[Attribute]AttrClass{}
 
 func init() {
         __clsmap[Tiny] = SizeClass
@@ -293,7 +284,7 @@ func init() {
         __clsmap[Grim] = EmotionClass
 }
 
-func GetClass(p Attribute) PredicateClass {
+func GetClass(p Attribute) AttrClass {
         cls, ok := __clsmap[p]
 
         if !ok {
@@ -308,19 +299,32 @@ type Conditional struct {
         OrConditions []Attribute
 }
 
-func (c *Conditional) Valid(e Entity) bool {
+func (c *Conditional) TryValidate(rf *RealityFrame) error {
         for _, pred := range c.AndConditions {
-                if !e.Is(pred) {
-                        return false
+                if !rf.Is(pred) {
+                        return fmt.Errorf("invalid AND condition: %v", pred)
                 }
         }
 
         all := false
         for _, pred := range c.OrConditions {
-                all = all || e.Is(pred)
+                all = all || rf.Is(pred)
         }
 
-        return all
+        if !all {
+                // Join all Attributes for error.
+                ors := make([]string, len(c.OrConditions))
+                for i, or := range c.OrConditions {
+                        ors[i] = string(or)
+                }
+
+                together := strings.Join(ors, ", ")
+
+                return fmt.Errorf("invalid OR condition: %v", together)
+
+        }
+
+        return nil
 }
 
 type PerceptionFrame struct {
@@ -329,16 +333,16 @@ type PerceptionFrame struct {
         Name string
 }
 
-func (pf *PerceptionFrame) Describe(w io.Writer, e Entity) error {
-        if !pf.Valid(e) {
-                return errors.New("Failed condition")
+func (pf *PerceptionFrame) Describe(w io.Writer, rf *RealityFrame) error {
+        if err := pf.TryValidate(rf); err != nil {
+                return errors.Wrap(err, "Failed condition")
         }
 
-        return pf.Perception.Describe(w, e)
+        return pf.Perception.Describe(w, rf)
 }
 
 type Perception interface {
-        Describe(w io.Writer, e Entity) error
+        Describe(w io.Writer, rf *RealityFrame) error
 }
 
 func PrisonCell() *PerceptionFrame {
@@ -363,15 +367,15 @@ func PrisonCell() *PerceptionFrame {
 
 type CellPerception struct {}
 
-func (cf *CellPerception) Describe(w io.Writer, e Entity) error {
-        if e.Is(Tiny) {
+func (cf *CellPerception) Describe(w io.Writer, rf *RealityFrame) error {
+        if rf.Is(Tiny) {
                 fmt.Fprint(w, "You are in a cramped prison cell. ")
                 fmt.Fprint(w, "The walls seem to press in around you.")
         } else {
                 fmt.Fprint(w, "You are in a spacious prison cell.")
         }
 
-        err := e.Describe(w, Attributes(Grim))
+        err := rf.Describe(w, Attributes(Grim))
 
         if err != nil {
                 return errors.Wrap(err, "CellPerception describe failed")
