@@ -84,18 +84,24 @@ type Room struct {
 }
 
 func (r *Room) Is(attr Attribute) bool {
+        trivial := map[Attribute]bool {
+                Inside: true,
+                Sealed: true,
+                Location: true,
+        }
+
+        if trivial[attr] {
+                return true
+        }
+
         switch (attr) {
         case Tiny:
                 return r.Size == CUPBOARD
         case Small:
                 return r.Size == SMALL_ROOM
-        case Inside:
-                return true
-        case Sealed:
-                return true
-        default:
-                return false
         }
+
+        return false;
 }
 
 func (r *Room) Describe(w io.Writer, attrs AttrSet) error {
@@ -372,8 +378,10 @@ func (cf *CellPerception) Describe(w io.Writer, rf *RealityFrame) error {
                 fmt.Fprint(w, "You are in a cramped prison cell. ")
                 fmt.Fprint(w, "The walls seem to press in around you.")
         } else {
-                fmt.Fprint(w, "You are in a spacious prison cell.")
+                fmt.Fprint(w, "You are in a modest prison cell.")
         }
+
+        fmt.Fprint(w, "\n")
 
         err := rf.Describe(w, Attributes(Grim))
 
