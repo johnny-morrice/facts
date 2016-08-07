@@ -32,7 +32,7 @@ func main() {
 
         if len(os.Args) > 1 {
                 door.Handle = &DoorHandle{}
-        } 
+        }
 
         frame.Structure = room
 
@@ -424,6 +424,10 @@ func (c *Conditional) Validate(rf *RealityFrame) error {
                 if !rf.Is(pred) {
                         return fmt.Errorf("invalid AND condition: %v", pred)
                 }
+        }
+
+        if len(c.OrConditions) == 0 {
+                return nil
         }
 
         all := false
