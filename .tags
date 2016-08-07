@@ -1,122 +1,124 @@
 main	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^package main$/;"	package	line:1
 main	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func main() {$/;"	func	line:15
 main	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func main() {$/;"	func	line:15
-RealityFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type RealityFrame struct {$/;"	type	line:53
-RealityFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type RealityFrame struct {$/;"	type	line:53
-Is	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (rf *RealityFrame) Is(attr Attribute) bool {$/;"	func	line:58
-Is	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (rf *RealityFrame) Is(attr Attribute) bool {$/;"	func	line:58
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (rf *RealityFrame) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:62
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (rf *RealityFrame) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:62
-Checker	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Checker interface {$/;"	type	line:66
-Checker	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Checker interface {$/;"	type	line:66
-Describer	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Describer interface {$/;"	type	line:70
-Describer	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Describer interface {$/;"	type	line:70
-Entity	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Entity interface {$/;"	type	line:74
-Entity	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Entity interface {$/;"	type	line:74
-Structure	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Structure Entity$/;"	type	line:79
-Structure	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Structure Entity$/;"	type	line:79
-Room	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Room struct {$/;"	type	line:81
-Room	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Room struct {$/;"	type	line:81
-Is	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) Is(attr Attribute) bool {$/;"	func	line:87
-Is	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) Is(attr Attribute) bool {$/;"	func	line:87
-doorsWillEntrap	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) doorsWillEntrap() bool {$/;"	func	line:112
-doorsWillEntrap	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) doorsWillEntrap() bool {$/;"	func	line:112
-areWallsAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) areWallsAustere() bool {$/;"	func	line:122
-areWallsAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) areWallsAustere() bool {$/;"	func	line:122
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:132
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:132
-AttrSet	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type AttrSet map[Attribute]bool$/;"	type	line:165
-AttrSet	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type AttrSet map[Attribute]bool$/;"	type	line:165
-Has	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (a AttrSet) Has(attr Attribute) bool {$/;"	func	line:167
-Has	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (a AttrSet) Has(attr Attribute) bool {$/;"	func	line:167
-Attributes	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func Attributes(attrs... Attribute) AttrSet {$/;"	func	line:171
-Attributes	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func Attributes(attrs... Attribute) AttrSet {$/;"	func	line:171
-RoomSize	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type RoomSize uint8$/;"	type	line:181
-RoomSize	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type RoomSize uint8$/;"	type	line:181
-CUPBOARD	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        CUPBOARD = RoomSize(iota)$/;"	const	line:183
-SMALL_ROOM	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        SMALL_ROOM = RoomSize(iota)$/;"	const	line:184
-LARGE_ROOM	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        LARGE_ROOM = RoomSize(iota)$/;"	const	line:185
-Material	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Material struct {$/;"	type	line:189
-Material	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Material struct {$/;"	type	line:189
-isAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (m *Material) isAustere() bool {$/;"	func	line:194
-isAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (m *Material) isAustere() bool {$/;"	func	line:194
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (m *Material) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:204
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (m *Material) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:204
-Wall	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Wall struct {$/;"	type	line:210
-Wall	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Wall struct {$/;"	type	line:210
-isAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (wall *Wall) isAustere() bool {$/;"	func	line:215
-isAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (wall *Wall) isAustere() bool {$/;"	func	line:215
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (wall *Wall) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:225
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (wall *Wall) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:225
-Door	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Door struct {$/;"	type	line:250
-Door	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Door struct {$/;"	type	line:250
-DoorHandle	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type DoorHandle struct {$/;"	type	line:255
-DoorHandle	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type DoorHandle struct {$/;"	type	line:255
-MakeMaterial	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeMaterial(desc string) Material {$/;"	func	line:260
-MakeMaterial	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeMaterial(desc string) Material {$/;"	func	line:260
-MakeMaterials	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeMaterials(desc string, count int) []Material {$/;"	func	line:269
-MakeMaterials	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeMaterials(desc string, count int) []Material {$/;"	func	line:269
-MakeWalls	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeWalls(materials []Material, count int) []Wall {$/;"	func	line:280
-MakeWalls	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeWalls(materials []Material, count int) []Wall {$/;"	func	line:280
-MakeWall	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeWall(materials []Material) Wall {$/;"	func	line:291
-MakeWall	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeWall(materials []Material) Wall {$/;"	func	line:291
-Action	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Action uint$/;"	type	line:297
-Action	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Action uint$/;"	type	line:297
-Look	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Look = Action(iota)$/;"	const	line:299
-Walk	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Walk$/;"	const	line:300
-Touch	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Touch$/;"	const	line:301
-Lick	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Lick$/;"	const	line:302
-Listen	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Listen$/;"	const	line:303
-Smell	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Smell$/;"	const	line:304
-Attribute	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Attribute string$/;"	type	line:308
-Attribute	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Attribute string$/;"	type	line:308
-Location	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Location Attribute = "location"$/;"	const	line:310
-Inside	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Inside Attribute = "inside"$/;"	const	line:311
-Sealed	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Sealed Attribute = "sealed"$/;"	const	line:312
-Tiny	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Tiny Attribute = "tiny"$/;"	const	line:313
-Small	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Small Attribute = "small"$/;"	const	line:314
-Grim	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Grim Attribute = "grim"$/;"	const	line:315
-Austere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Austere Attribute = "austere"$/;"	const	line:316
-CantLeave	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const CantLeave Attribute = "CantLeave"$/;"	const	line:317
-AttrClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type AttrClass Attribute$/;"	type	line:319
-AttrClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type AttrClass Attribute$/;"	type	line:319
-RootClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const RootClass AttrClass = "root"$/;"	const	line:321
-ArchitectureClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const ArchitectureClass AttrClass = "architecture"$/;"	const	line:322
-SizeClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const SizeClass AttrClass = "size"$/;"	const	line:323
-EmotionClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const EmotionClass AttrClass = "emotion"$/;"	const	line:324
-__clsmap	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^var __clsmap = map[Attribute]AttrClass{}$/;"	var	line:326
-__clsmap	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^var __clsmap = map[Attribute]AttrClass{}$/;"	var	line:326
-init	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func init() {$/;"	func	line:328
-init	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func init() {$/;"	func	line:328
-GetClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func GetClass(p Attribute) AttrClass {$/;"	func	line:340
-GetClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func GetClass(p Attribute) AttrClass {$/;"	func	line:340
-Conditional	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Conditional struct {$/;"	type	line:350
-Conditional	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Conditional struct {$/;"	type	line:350
-MatchingConditions	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (c *Conditional) MatchingConditions(rf *RealityFrame) []Attribute {$/;"	func	line:355
-MatchingConditions	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (c *Conditional) MatchingConditions(rf *RealityFrame) []Attribute {$/;"	func	line:355
-Validate	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (c *Conditional) Validate(rf *RealityFrame) error {$/;"	func	line:369
-Validate	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (c *Conditional) Validate(rf *RealityFrame) error {$/;"	func	line:369
-Personality	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Personality struct {$/;"	type	line:397
-Personality	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Personality struct {$/;"	type	line:397
-ChooseFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {$/;"	func	line:401
-ChooseFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {$/;"	func	line:401
-PerceptionFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type PerceptionFrame struct {$/;"	type	line:438
-PerceptionFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type PerceptionFrame struct {$/;"	type	line:438
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (pf *PerceptionFrame) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:444
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (pf *PerceptionFrame) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:444
-Perception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Perception interface {$/;"	type	line:452
-Perception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Perception interface {$/;"	type	line:452
-PrisonCell	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func PrisonCell() *PerceptionFrame {$/;"	func	line:456
-PrisonCell	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func PrisonCell() *PerceptionFrame {$/;"	func	line:456
-SimpleWard	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func SimpleWard() *PerceptionFrame {$/;"	func	line:478
-SimpleWard	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func SimpleWard() *PerceptionFrame {$/;"	func	line:478
-WardPerception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type WardPerception struct {}$/;"	type	line:494
-WardPerception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type WardPerception struct {}$/;"	type	line:494
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (WardPerception) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:496
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (WardPerception) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:496
-CellPerception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type CellPerception struct {}$/;"	type	line:516
-CellPerception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type CellPerception struct {}$/;"	type	line:516
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (CellPerception) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:518
-Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (CellPerception) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:518
-newline	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func newline(w io.Writer) {$/;"	func	line:537
-newline	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func newline(w io.Writer) {$/;"	func	line:537
+RealityFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type RealityFrame struct {$/;"	type	line:58
+RealityFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type RealityFrame struct {$/;"	type	line:58
+Is	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (rf *RealityFrame) Is(attr Attribute) bool {$/;"	func	line:63
+Is	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (rf *RealityFrame) Is(attr Attribute) bool {$/;"	func	line:63
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (rf *RealityFrame) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:67
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (rf *RealityFrame) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:67
+Checker	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Checker interface {$/;"	type	line:71
+Checker	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Checker interface {$/;"	type	line:71
+Describer	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Describer interface {$/;"	type	line:75
+Describer	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Describer interface {$/;"	type	line:75
+Entity	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Entity interface {$/;"	type	line:79
+Entity	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Entity interface {$/;"	type	line:79
+Structure	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Structure Entity$/;"	type	line:84
+Structure	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Structure Entity$/;"	type	line:84
+Room	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Room struct {$/;"	type	line:86
+Room	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Room struct {$/;"	type	line:86
+Is	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) Is(attr Attribute) bool {$/;"	func	line:92
+Is	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) Is(attr Attribute) bool {$/;"	func	line:92
+doorsWillEntrap	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) doorsWillEntrap() bool {$/;"	func	line:117
+doorsWillEntrap	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) doorsWillEntrap() bool {$/;"	func	line:117
+areWallsAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) areWallsAustere() bool {$/;"	func	line:127
+areWallsAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) areWallsAustere() bool {$/;"	func	line:127
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:137
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (r *Room) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:137
+AttrSet	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type AttrSet map[Attribute]bool$/;"	type	line:170
+AttrSet	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type AttrSet map[Attribute]bool$/;"	type	line:170
+Has	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (a AttrSet) Has(attr Attribute) bool {$/;"	func	line:172
+Has	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (a AttrSet) Has(attr Attribute) bool {$/;"	func	line:172
+Attributes	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func Attributes(attrs... Attribute) AttrSet {$/;"	func	line:176
+Attributes	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func Attributes(attrs... Attribute) AttrSet {$/;"	func	line:176
+RoomSize	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type RoomSize uint8$/;"	type	line:186
+RoomSize	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type RoomSize uint8$/;"	type	line:186
+CUPBOARD	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        CUPBOARD = RoomSize(iota)$/;"	const	line:188
+SMALL_ROOM	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        SMALL_ROOM = RoomSize(iota)$/;"	const	line:189
+LARGE_ROOM	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        LARGE_ROOM = RoomSize(iota)$/;"	const	line:190
+Material	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Material struct {$/;"	type	line:194
+Material	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Material struct {$/;"	type	line:194
+isAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (m *Material) isAustere() bool {$/;"	func	line:199
+isAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (m *Material) isAustere() bool {$/;"	func	line:199
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (m *Material) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:209
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (m *Material) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:209
+Wall	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Wall struct {$/;"	type	line:215
+Wall	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Wall struct {$/;"	type	line:215
+isAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (wall *Wall) isAustere() bool {$/;"	func	line:220
+isAustere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (wall *Wall) isAustere() bool {$/;"	func	line:220
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (wall *Wall) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:230
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (wall *Wall) Describe(w io.Writer, attrs AttrSet) error {$/;"	func	line:230
+Door	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Door struct {$/;"	type	line:255
+Door	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Door struct {$/;"	type	line:255
+DoorHandle	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type DoorHandle struct {$/;"	type	line:260
+DoorHandle	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type DoorHandle struct {$/;"	type	line:260
+MakeMaterial	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeMaterial(desc string) Material {$/;"	func	line:265
+MakeMaterial	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeMaterial(desc string) Material {$/;"	func	line:265
+MakeMaterials	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeMaterials(desc string, count int) []Material {$/;"	func	line:274
+MakeMaterials	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeMaterials(desc string, count int) []Material {$/;"	func	line:274
+MakeWalls	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeWalls(materials []Material, count int) []Wall {$/;"	func	line:285
+MakeWalls	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeWalls(materials []Material, count int) []Wall {$/;"	func	line:285
+MakeWall	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeWall(materials []Material) Wall {$/;"	func	line:296
+MakeWall	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func MakeWall(materials []Material) Wall {$/;"	func	line:296
+Action	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Action uint$/;"	type	line:302
+Action	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Action uint$/;"	type	line:302
+Look	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Look = Action(iota)$/;"	const	line:304
+Walk	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Walk$/;"	const	line:305
+Touch	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Touch$/;"	const	line:306
+Lick	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Lick$/;"	const	line:307
+Listen	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Listen$/;"	const	line:308
+Smell	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^        Smell$/;"	const	line:309
+Attribute	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Attribute string$/;"	type	line:313
+Attribute	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Attribute string$/;"	type	line:313
+Location	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Location Attribute = "location"$/;"	const	line:315
+Inside	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Inside Attribute = "inside"$/;"	const	line:316
+Sealed	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Sealed Attribute = "sealed"$/;"	const	line:317
+Tiny	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Tiny Attribute = "tiny"$/;"	const	line:318
+Small	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Small Attribute = "small"$/;"	const	line:319
+Grim	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Grim Attribute = "grim"$/;"	const	line:320
+Austere	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const Austere Attribute = "austere"$/;"	const	line:321
+CantLeave	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const CantLeave Attribute = "CantLeave"$/;"	const	line:322
+AttrClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type AttrClass Attribute$/;"	type	line:324
+AttrClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type AttrClass Attribute$/;"	type	line:324
+RootClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const RootClass AttrClass = "root"$/;"	const	line:326
+ArchitectureClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const ArchitectureClass AttrClass = "architecture"$/;"	const	line:327
+SizeClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const SizeClass AttrClass = "size"$/;"	const	line:328
+EmotionClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^const EmotionClass AttrClass = "emotion"$/;"	const	line:329
+__clsmap	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^var __clsmap = map[Attribute]AttrClass{}$/;"	var	line:331
+__clsmap	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^var __clsmap = map[Attribute]AttrClass{}$/;"	var	line:331
+init	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func init() {$/;"	func	line:333
+init	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func init() {$/;"	func	line:333
+GetClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func GetClass(p Attribute) AttrClass {$/;"	func	line:345
+GetClass	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func GetClass(p Attribute) AttrClass {$/;"	func	line:345
+Conditional	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Conditional struct {$/;"	type	line:355
+Conditional	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Conditional struct {$/;"	type	line:355
+MatchingConditions	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (c *Conditional) MatchingConditions(rf *RealityFrame) []Attribute {$/;"	func	line:360
+MatchingConditions	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (c *Conditional) MatchingConditions(rf *RealityFrame) []Attribute {$/;"	func	line:360
+Validate	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (c *Conditional) Validate(rf *RealityFrame) error {$/;"	func	line:374
+Validate	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (c *Conditional) Validate(rf *RealityFrame) error {$/;"	func	line:374
+Personality	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Personality struct {$/;"	type	line:402
+Personality	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Personality struct {$/;"	type	line:402
+ChooseFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {$/;"	func	line:406
+ChooseFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {$/;"	func	line:406
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (psych *Personality) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:443
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (psych *Personality) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:443
+PerceptionFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type PerceptionFrame struct {$/;"	type	line:459
+PerceptionFrame	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type PerceptionFrame struct {$/;"	type	line:459
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (pf *PerceptionFrame) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:465
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (pf *PerceptionFrame) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:465
+Perception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Perception interface {$/;"	type	line:473
+Perception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type Perception interface {$/;"	type	line:473
+PrisonCell	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func PrisonCell() *PerceptionFrame {$/;"	func	line:477
+PrisonCell	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func PrisonCell() *PerceptionFrame {$/;"	func	line:477
+SimpleWard	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func SimpleWard() *PerceptionFrame {$/;"	func	line:499
+SimpleWard	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func SimpleWard() *PerceptionFrame {$/;"	func	line:499
+WardPerception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type WardPerception struct {}$/;"	type	line:515
+WardPerception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type WardPerception struct {}$/;"	type	line:515
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (WardPerception) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:517
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (WardPerception) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:517
+CellPerception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type CellPerception struct {}$/;"	type	line:537
+CellPerception	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^type CellPerception struct {}$/;"	type	line:537
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (CellPerception) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:539
+Describe	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func (CellPerception) Describe(w io.Writer, rf *RealityFrame) error {$/;"	func	line:539
+newline	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func newline(w io.Writer) {$/;"	func	line:558
+newline	/home/jmorrice/gospace/src/github.com/johnny-morrice/facts/main.go	/^func newline(w io.Writer) {$/;"	func	line:558

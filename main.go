@@ -33,11 +33,16 @@ func main() {
 
         //frame.PlayerEntity = MakeHuman("adult:male:prime")
 
-        perc := PrisonCell()
+        psych := Personality{}
+
+        psych.Pframes = []*PerceptionFrame{
+                PrisonCell(),
+                SimpleWard(),
+        }
 
         out := bufio.NewWriter(os.Stdout)
 
-        err := perc.Describe(out, frame)
+        err := psych.Describe(out, frame)
 
         if err != nil {
                 log.Fatal(errors.Wrap(err, "error: "))
@@ -395,7 +400,7 @@ func (c *Conditional) Validate(rf *RealityFrame) error {
 }
 
 type Personality struct {
-        Pframes []PerceptionFrame
+        Pframes []*PerceptionFrame
 }
 
 func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {
@@ -403,7 +408,7 @@ func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {
 
         for _, p := range p.Pframes {
                 if err := p.Validate(rf); err == nil {
-                        matching = append(matching, &p)
+                        matching = append(matching, p)
                 }
         }
 
@@ -433,6 +438,22 @@ func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {
         rouge := rand.Intn(len(top))
 
         return top[rouge], nil
+}
+
+func (psych *Personality) Describe(w io.Writer, rf *RealityFrame) error {
+        perc, err := psych.ChooseFrame(rf)
+
+        if err != nil {
+                return errors.Wrap(err, "personality choosing pframe")
+        }
+
+        err = perc.Describe(w, rf)
+
+        if err != nil {
+                return errors.Wrap(err, "personalty describing perception")
+        }
+
+        return nil
 }
 
 type PerceptionFrame struct {
