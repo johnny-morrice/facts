@@ -99,10 +99,34 @@ func (r *Room) Is(attr Attribute) bool {
         case Tiny:
                 return r.Size == CUPBOARD
         case Small:
-                return r.Size == SMALL_ROOM
+                return r.Size <= SMALL_ROOM
+        case Austere:
+                return r.areWallsAustere()
+        case CantLeave:
+                return r.doorsWillEntrap()
         }
 
         return false;
+}
+
+func (r *Room) doorsWillEntrap() bool {
+        for _, w := range r.Walls {
+                if w.Door != nil && w.Door.Handle != nil {
+                        return false
+                }
+        }
+
+        return true
+}
+
+func (r *Room) areWallsAustere() bool {
+        for _, w := range r.Walls {
+                if !w.isAustere() {
+                        return false
+                }
+        }
+
+        return true
 }
 
 func (r *Room) Describe(w io.Writer, attrs AttrSet) error {
@@ -123,7 +147,7 @@ func (r *Room) Describe(w io.Writer, attrs AttrSet) error {
 
         fmt.Fprintf(w, "It has %v walls.", len(r.Walls))
 
-        fmt.Fprintf(w, "\n")
+        newline(w)
 
         for _, wall := range r.Walls {
                 err := wall.Describe(w, attrs)
@@ -132,7 +156,7 @@ func (r *Room) Describe(w io.Writer, attrs AttrSet) error {
                         return errors.Wrap(err, "room describing walls")
                 }
 
-                fmt.Fprintf(w, "\n")
+                newline(w)
         }
 
         return nil
@@ -167,6 +191,16 @@ type Material struct {
         Color string
 }
 
+func (m *Material) isAustere() bool {
+        austere := map[string]bool{
+                "brick": true,
+                "steel": true,
+                "tiles": true,
+        }
+
+        return austere[m.Name]
+}
+
 func (m *Material) Describe(w io.Writer, attrs AttrSet) error {
         fmt.Fprintf(w, "%v of %v", m.Name, m.Color)
 
@@ -175,7 +209,17 @@ func (m *Material) Describe(w io.Writer, attrs AttrSet) error {
 
 type Wall struct {
         Panes []Material
-        Door Door
+        Door *Door
+}
+
+func (wall *Wall) isAustere() bool {
+        for _, m := range wall.Panes {
+                if !m.isAustere() {
+                        return false
+                }
+        }
+
+        return true
 }
 
 func (wall *Wall) Describe(w io.Writer, attrs AttrSet) error {
@@ -205,7 +249,7 @@ func (wall *Wall) Describe(w io.Writer, attrs AttrSet) error {
 
 type Door struct {
         Panes []Material
-        Handle DoorHandle
+        Handle *DoorHandle
 }
 
 type DoorHandle struct {
@@ -269,6 +313,8 @@ const Sealed Attribute = "sealed"
 const Tiny Attribute = "tiny"
 const Small Attribute = "small"
 const Grim Attribute = "grim"
+const Austere Attribute = "austere"
+const CantLeave Attribute = "CantLeave"
 
 type AttrClass Attribute
 
@@ -306,6 +352,20 @@ type Conditional struct {
         OrConditions []Attribute
 }
 
+func (c *Conditional) MatchingConditions(rf *RealityFrame) []Attribute {
+        hold := []Attribute{}
+
+        allattrs := append(c.AndConditions, c.OrConditions...)
+
+        for _, attr := range allattrs {
+                if rf.Is(attr) {
+                        hold = append(hold, attr)
+                }
+        }
+
+        return hold
+}
+
 func (c *Conditional) Validate(rf *RealityFrame) error {
         for _, pred := range c.AndConditions {
                 if !rf.Is(pred) {
@@ -339,11 +399,11 @@ type Personality struct {
 }
 
 func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {
-        matching := []PerceptionFrame{}
+        matching := []*PerceptionFrame{}
 
         for _, p := range p.Pframes {
                 if err := p.Validate(rf); err == nil {
-                        matching = append(matching, p)
+                        matching = append(matching, &p)
                 }
         }
 
@@ -351,9 +411,28 @@ func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {
                 return nil, errors.New("no matching perception frame")
         }
 
-        index := rand.Intn(len(matching))
+        scored := map[int][]*PerceptionFrame{}
+        highest := 0
 
-        return &matching[index], nil
+        for _, perc := range matching {
+                score := len(perc.MatchingConditions(rf))
+
+                if score > highest {
+                        highest = score
+                }
+
+                if peers, ok := scored[score]; ok {
+                        scored[score] = append(peers, perc)
+                } else {
+                        scored[score] = []*PerceptionFrame{perc,}
+                }
+        }
+
+        top := scored[highest]
+
+        rouge := rand.Intn(len(top))
+
+        return top[rouge], nil
 }
 
 type PerceptionFrame struct {
@@ -384,6 +463,8 @@ func PrisonCell() *PerceptionFrame {
         cell.AndConditions = []Attribute{
                 Location,
                 Sealed,
+                Austere,
+                CantLeave,
         }
 
         cell.OrConditions = []Attribute{
@@ -394,17 +475,55 @@ func PrisonCell() *PerceptionFrame {
         return cell
 }
 
+func SimpleWard() *PerceptionFrame {
+        ward := &PerceptionFrame{}
+
+        ward.Name = "SimpleWard"
+
+        ward.Perception = &WardPerception{}
+
+        ward.AndConditions = []Attribute{
+                Location,
+                Sealed,
+                Austere,
+        }
+
+        return ward
+}
+
+type WardPerception struct {}
+
+func (WardPerception) Describe(w io.Writer, rf *RealityFrame) error {
+        if rf.Is(Tiny) {
+                fmt.Fprintf(w, "You are in a simple hospital room.")
+        } else if rf.Is(Small) {
+                fmt.Fprintf(w, "You are in a small hospital ward.")
+        } else {
+                fmt.Fprintf(w, "You are in a hospital ward.")
+        }
+
+        newline(w)
+
+        err := rf.Describe(w, Attributes(nil...))
+
+        if err != nil {
+                return errors.Wrap(err, "WardPerception describe failed")
+        }
+
+        return nil
+}
+
 type CellPerception struct {}
 
-func (cf *CellPerception) Describe(w io.Writer, rf *RealityFrame) error {
+func (CellPerception) Describe(w io.Writer, rf *RealityFrame) error {
         if rf.Is(Tiny) {
-                fmt.Fprint(w, "You are in a cramped prison cell. ")
+                fmt.Fprint(w, "You are in a cramped prison cell.")
                 fmt.Fprint(w, "The walls seem to press in around you.")
         } else {
                 fmt.Fprint(w, "You are in a prison cell.")
         }
 
-        fmt.Fprint(w, "\n")
+        newline(w)
 
         err := rf.Describe(w, Attributes(Grim))
 
@@ -413,4 +532,8 @@ func (cf *CellPerception) Describe(w io.Writer, rf *RealityFrame) error {
         }
 
         return nil
+}
+
+func newline(w io.Writer) {
+        fmt.Fprint(w, "\n")
 }
