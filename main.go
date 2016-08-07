@@ -6,6 +6,7 @@ import (
         "io"
         "log"
         "os"
+        "math/rand"
         "strings"
 
         "github.com/pkg/errors"
@@ -305,7 +306,7 @@ type Conditional struct {
         OrConditions []Attribute
 }
 
-func (c *Conditional) TryValidate(rf *RealityFrame) error {
+func (c *Conditional) Validate(rf *RealityFrame) error {
         for _, pred := range c.AndConditions {
                 if !rf.Is(pred) {
                         return fmt.Errorf("invalid AND condition: %v", pred)
@@ -333,6 +334,28 @@ func (c *Conditional) TryValidate(rf *RealityFrame) error {
         return nil
 }
 
+type Personality struct {
+        Pframes []PerceptionFrame
+}
+
+func (p *Personality) ChooseFrame(rf *RealityFrame) (*PerceptionFrame, error) {
+        matching := []PerceptionFrame{}
+
+        for _, p := range p.Pframes {
+                if err := p.Validate(rf); err == nil {
+                        matching = append(matching, p)
+                }
+        }
+
+        if len(matching) == 0 {
+                return nil, errors.New("no matching perception frame")
+        }
+
+        index := rand.Intn(len(matching))
+
+        return &matching[index], nil
+}
+
 type PerceptionFrame struct {
         Conditional
         Perception Perception
@@ -340,7 +363,7 @@ type PerceptionFrame struct {
 }
 
 func (pf *PerceptionFrame) Describe(w io.Writer, rf *RealityFrame) error {
-        if err := pf.TryValidate(rf); err != nil {
+        if err := pf.Validate(rf); err != nil {
                 return errors.Wrap(err, "Failed condition")
         }
 
@@ -378,7 +401,7 @@ func (cf *CellPerception) Describe(w io.Writer, rf *RealityFrame) error {
                 fmt.Fprint(w, "You are in a cramped prison cell. ")
                 fmt.Fprint(w, "The walls seem to press in around you.")
         } else {
-                fmt.Fprint(w, "You are in a modest prison cell.")
+                fmt.Fprint(w, "You are in a prison cell.")
         }
 
         fmt.Fprint(w, "\n")
