@@ -8,7 +8,6 @@ type Packet struct {
 type UpdateType string
 
 const (
-        SliceUpdate = "SliceUpdate"
         TextUpdate = "TextUpdate"
         ChooseUpdate = "ChooseUpdate"
         ErrorUpdate = "ErrorUpdate"
@@ -23,10 +22,10 @@ type Update struct {
 type EventType string
 
 const (
-        DoEvent = "DoEvent"
-        MatchEvent = "MatchEvent"
+        NextEvent = "NextEvent"
+        ChoiceEvent = "ChoiceEvent"
         BeginEvent = "BeginEvent"
-        QuitEvent = "QuitEvent"
+        CloseEvent = "CloseEvent"
 )
 
 type Event struct {
@@ -35,36 +34,28 @@ type Event struct {
 }
 
 type Game interface {
-        Ctrl(ev *Event) (*Update, error)
+        Ctrl(ev Event) Update
 }
 
-func Loop(game Game, outch chan<- *Update, evch <-chan *Event) {
+func Loop(game Game, evch <-chan Event, outch chan<- Update) error {
+        var err error
+
         for input := range evch {
-                update, err := game.Ctrl(input)
+                update := game.Ctrl(input)
 
-                if err != nil {
-                        outch<- fail(err)
+                outch<- update
+
+                if update.Type == ErrorUpdate {
+                        err = update.Data.(error)
+                        goto CLOSE
                 }
 
-                if update == nil {
-                        outch<- end()
-                        return
-                } else {
-                        outch<- update
+                if update.Type == CloseUpdate {
+                        goto CLOSE
                 }
         }
-}
 
-func end() *Update {
-        return &Update{
-                Type: CloseUpdate,
-        }
-}
-
-func fail(err error) *Update {
-        bad := &Update{}
-        bad.Type = ErrorUpdate
-        bad.Data = err
-
-        return bad
+CLOSE:
+        close(outch)
+        return err
 }
